@@ -1,704 +1,779 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>prompt-micro-innovate · 抖音 / 短视频 Prompt 微创新 Agent</title>
-  <meta name="description" content="抖音 / 短视频 Prompt 微创新方法论 + 21 项硬指标自检工具。把参考爆款 prompt 做差异化改写，避免平台判定为同质化抄袭。">
-  <style>
-/* prompt-micro-innovate · v0.4.1 静态介绍页 */
-:root {
-  --bg: #0d1117;
-  --bg-soft: #161b22;
-  --bg-card: #1c2128;
-  --border: #30363d;
-  --border-soft: #21262d;
-  --text: #e6edf3;
-  --text-soft: #8b949e;
-  --accent: #58a6ff;
-  --accent-soft: #1f6feb;
-  --green: #3fb950;
-  --red: #f85149;
-  --yellow: #d29922;
-  --purple: #bc8cff;
-  --code-bg: #0b0f14;
-  --shadow: 0 8px 24px rgba(0,0,0,0.4);
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>prompt-micro-innovate · 可交互演示</title>
+<style>
+:root{
+  --bg:#0d1117;--bg-soft:#161b22;--bg-card:#1c2128;
+  --border:#30363d;--border-soft:#21262d;
+  --text:#e6edf3;--text-soft:#8b949e;
+  --accent:#58a6ff;--accent-soft:#1f6feb;
+  --green:#3fb950;--red:#f85149;--yellow:#d29922;--purple:#bc8cff;
+  --code-bg:#0b0f14;
 }
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.65;font-size:15px}
+a{color:var(--accent);text-decoration:none}
+code,pre{font-family:"SF Mono","Menlo","Monaco","Consolas",monospace;font-size:13px}
+.container{max-width:1280px;margin:0 auto;padding:0 20px}
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+/* ====== Header ====== */
+.hero{padding:32px 0 24px;background:linear-gradient(180deg,#0d1117,#161b22);border-bottom:1px solid var(--border-soft)}
+.hero h1{font-size:28px;font-weight:700;letter-spacing:-.02em;background:linear-gradient(135deg,#58a6ff,#bc8cff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:inline-block}
+.hero .tagline{color:var(--text-soft);margin-top:6px;font-size:14px}
+.hero .badge{display:inline-block;padding:3px 10px;font-size:11px;color:var(--accent);background:rgba(56,139,253,.1);border:1px solid rgba(56,139,253,.3);border-radius:12px;margin-left:12px;font-weight:500;vertical-align:middle}
+.hero .meta{margin-top:10px;font-size:12px;color:var(--text-soft)}
+.hero .meta code{background:rgba(110,118,129,.2);padding:2px 6px;border-radius:4px;color:#ff7b72}
 
-html { scroll-behavior: smooth; }
+/* ====== Layout ====== */
+.main{padding:24px 0 80px}
+.layout{display:grid;grid-template-columns:380px 1fr;gap:20px}
+@media(max-width:960px){.layout{grid-template-columns:1fr}}
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
-               "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.65;
-  font-size: 16px;
-}
+/* ====== Panel ====== */
+.panel{background:var(--bg-card);border:1px solid var(--border-soft);border-radius:10px;padding:18px}
+.panel h2{font-size:15px;font-weight:600;margin-bottom:14px;color:var(--text);display:flex;align-items:center;gap:8px}
+.panel h2 .num{background:var(--accent-soft);color:#fff;font-size:11px;padding:2px 8px;border-radius:10px;font-weight:700}
 
-a { color: var(--accent); text-decoration: none; transition: color 0.15s; }
-a:hover { color: #79c0ff; }
+/* ====== Input ====== */
+.input-group{margin-bottom:14px}
+.input-group label{display:block;font-size:12px;color:var(--text-soft);margin-bottom:6px;font-weight:500}
+.input-group label .hint{font-weight:normal;opacity:.7;margin-left:6px}
+textarea,select{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:8px 10px;font-size:13px;font-family:inherit;line-height:1.5;resize:vertical}
+textarea{min-height:64px}
+textarea:focus,select:focus{outline:none;border-color:var(--accent)}
+.candidate-area{min-height:140px}
 
-code, pre {
-  font-family: "SF Mono", "Menlo", "Monaco", "Consolas", monospace;
-  font-size: 14px;
-}
+/* ====== Buttons ====== */
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;border:1px solid transparent;background:transparent;color:var(--text)}
+.btn:hover{background:var(--bg-card)}
+.btn-primary{background:var(--accent-soft);color:#fff;border-color:rgba(255,255,255,.1)}
+.btn-primary:hover{background:#388bfd;color:#fff}
+.btn-secondary{border-color:var(--border);color:var(--text)}
+.btn-secondary:hover{border-color:var(--text-soft)}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.btn-tiny{padding:3px 8px;font-size:11px;border-radius:4px;background:rgba(110,118,129,.15);border:1px solid var(--border-soft);color:var(--text-soft);cursor:pointer}
+.btn-tiny:hover{background:rgba(110,118,129,.3);color:var(--text)}
 
-.container {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
+/* ====== Sample chips ====== */
+.sample-row{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.sample-chip{padding:5px 10px;font-size:11px;border-radius:14px;border:1px solid var(--border-soft);background:transparent;color:var(--text-soft);cursor:pointer;transition:all .15s}
+.sample-chip:hover{border-color:var(--accent);color:var(--accent)}
+.sample-chip.active{background:rgba(56,139,253,.1);border-color:var(--accent);color:var(--accent)}
 
-/* ============ Header / Hero ============ */
-.hero {
-  padding: 96px 0 64px;
-  background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
-  border-bottom: 1px solid var(--border-soft);
-  text-align: center;
-}
+/* ====== Result area ====== */
+.result-empty{text-align:center;padding:60px 20px;color:var(--text-soft)}
+.result-empty .icon{font-size:48px;margin-bottom:12px;opacity:.3}
+.result-empty .title{font-size:16px;font-weight:500;color:var(--text);margin-bottom:6px}
 
-.hero .badge {
-  display: inline-block;
-  padding: 4px 12px;
-  font-size: 12px;
-  color: var(--accent);
-  background: rgba(56, 139, 253, 0.1);
-  border: 1px solid rgba(56, 139, 253, 0.3);
-  border-radius: 20px;
-  margin-bottom: 24px;
-  font-weight: 500;
-}
+/* ====== Summary banner ====== */
+.summary{padding:14px 18px;border-radius:8px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.summary.pass{background:rgba(63,185,80,.08);border:1px solid rgba(63,185,80,.3)}
+.summary.fail{background:rgba(248,81,73,.08);border:1px solid rgba(248,81,73,.3)}
+.summary.fallback{background:rgba(210,153,34,.08);border:1px solid rgba(210,153,34,.3)}
+.summary .badge-large{font-size:13px;font-weight:600;padding:4px 10px;border-radius:6px}
+.summary .badge-large.pass{background:rgba(63,185,80,.15);color:var(--green)}
+.summary .badge-large.fail{background:rgba(248,81,73,.15);color:var(--red)}
+.summary .badge-large.fallback{background:rgba(210,153,34,.15);color:var(--yellow)}
+.summary .detail{font-size:12px;color:var(--text-soft);flex:1;min-width:200px}
 
-.hero h1 {
-  font-size: 48px;
-  font-weight: 700;
-  margin-bottom: 16px;
-  letter-spacing: -0.02em;
-  background: linear-gradient(135deg, #58a6ff 0%, #bc8cff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+/* ====== Cross-candidate ====== */
+.cross-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-bottom:18px}
+.cross-item{padding:10px 12px;border-radius:6px;border-left:3px solid var(--border-soft);background:var(--bg)}
+.cross-item.pass{border-left-color:var(--green)}
+.cross-item.fail{border-left-color:var(--red)}
+.cross-item .code{font-size:12px;font-weight:600;margin-bottom:4px}
+.cross-item .code.pass{color:var(--green)}
+.cross-item .code.fail{color:var(--red)}
+.cross-item .detail{font-size:11px;color:var(--text-soft);line-height:1.4}
 
-.hero .tagline {
-  font-size: 20px;
-  color: var(--text-soft);
-  max-width: 720px;
-  margin: 0 auto 32px;
-}
+/* ====== Candidate card ====== */
+.candidate-card{background:var(--bg);border:1px solid var(--border-soft);border-radius:8px;padding:14px;margin-bottom:12px}
+.candidate-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.candidate-head .idx{background:var(--bg-card);color:var(--text-soft);font-size:11px;font-weight:600;padding:3px 8px;border-radius:10px}
+.candidate-head .len{font-size:11px;color:var(--text-soft)}
+.candidate-head .verdict{font-size:12px;font-weight:600;padding:3px 8px;border-radius:6px;margin-left:auto}
+.candidate-head .verdict.pass{background:rgba(63,185,80,.15);color:var(--green)}
+.candidate-head .verdict.fail{background:rgba(248,81,73,.15);color:var(--red)}
+.candidate-text{font-size:13px;color:var(--text);line-height:1.55;background:var(--bg-soft);padding:10px;border-radius:6px;margin-bottom:10px;max-height:120px;overflow-y:auto;border:1px solid var(--border-soft)}
+.fail-list{display:flex;flex-direction:column;gap:6px}
+.fail-item{font-size:12px;padding:8px 10px;border-radius:6px;background:rgba(248,81,73,.06);border:1px solid rgba(248,81,73,.2);border-left:3px solid var(--red)}
+.fail-item .code{color:var(--red);font-weight:600;margin-right:6px}
+.fail-item .reason{color:var(--text-soft);font-size:11px;margin-top:2px}
+.fail-item .fix{color:var(--accent);font-size:11px;margin-top:4px;display:flex;gap:6px;align-items:flex-start}
+.fail-item .fix::before{content:"💡";font-size:11px}
+.pass-item{font-size:12px;padding:6px 10px;border-radius:6px;background:rgba(63,185,80,.06);border-left:3px solid var(--green);color:var(--green);margin-bottom:4px}
 
-.hero .cta-group {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
+/* ====== JSON toggle ====== */
+.json-toggle{margin-top:10px}
+.json-toggle summary{cursor:pointer;font-size:12px;color:var(--text-soft);padding:6px 0}
+.json-toggle pre{background:var(--code-bg);border:1px solid var(--border-soft);border-radius:6px;padding:10px;font-size:11px;max-height:240px;overflow:auto;margin-top:6px}
+.j-key{color:#79c0ff}.j-str{color:#a5d6ff}.j-num{color:#f2cc60}.j-bool{color:#ff7b72}
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.15s;
-  border: 1px solid transparent;
-}
+/* ====== Footer ====== */
+footer{padding:32px 0;border-top:1px solid var(--border-soft);background:var(--bg-soft);font-size:12px;color:var(--text-soft);text-align:center}
+footer a{color:var(--accent);margin:0 8px}
 
-.btn-primary {
-  background: var(--accent-soft);
-  color: white;
-  border-color: rgba(255,255,255,0.1);
-}
-
-.btn-primary:hover {
-  background: #388bfd;
-  color: white;
-  transform: translateY(-1px);
-}
-
-.btn-secondary {
-  background: transparent;
-  color: var(--text);
-  border-color: var(--border);
-}
-
-.btn-secondary:hover {
-  background: var(--bg-card);
-  border-color: var(--text-soft);
-}
-
-/* ============ Section 通用 ============ */
-section {
-  padding: 80px 0;
-  border-bottom: 1px solid var(--border-soft);
-}
-
-section:last-of-type { border-bottom: none; }
-
-h2 {
-  font-size: 32px;
-  font-weight: 600;
-  margin-bottom: 32px;
-  letter-spacing: -0.01em;
-}
-
-h3 {
-  font-size: 20px;
-  font-weight: 600;
-  margin: 32px 0 16px;
-  color: var(--text);
-}
-
-p { margin-bottom: 16px; color: var(--text); }
-.muted { color: var(--text-soft); }
-
-/* ============ Stats 卡片 ============ */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 16px;
-  margin: 24px 0;
-}
-
-.stat-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-soft);
-  border-radius: 8px;
-  padding: 20px;
-}
-
-.stat-card .label {
-  font-size: 13px;
-  color: var(--text-soft);
-  margin-bottom: 8px;
-}
-
-.stat-card .value {
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--accent);
-  letter-spacing: -0.02em;
-}
-
-.stat-card .delta {
-  font-size: 13px;
-  color: var(--green);
-  margin-top: 4px;
-}
-
-/* ============ 工具链 ============ */
-.toolchain {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-}
-
-.tool {
-  background: var(--bg-card);
-  border: 1px solid var(--border-soft);
-  border-radius: 8px;
-  padding: 20px;
-}
-
-.tool .icon {
-  font-size: 24px;
-  margin-bottom: 8px;
-}
-
-.tool .name {
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.tool .role {
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-/* ============ 代码块 ============ */
-pre {
-  background: var(--code-bg);
-  border: 1px solid var(--border-soft);
-  border-radius: 8px;
-  padding: 16px;
-  overflow-x: auto;
-  margin: 16px 0;
-  line-height: 1.5;
-}
-
-code.inline {
-  background: rgba(110, 118, 129, 0.2);
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 13px;
-  color: #ff7b72;
-}
-
-/* JSON 高亮（纯 CSS，无 JS） */
-.j-key { color: #79c0ff; }
-.j-str { color: #a5d6ff; }
-.j-num { color: #f2cc60; }
-.j-bool { color: #ff7b72; }
-.j-null { color: #ff7b72; }
-
-/* ============ 21 项自检清单 ============ */
-.checks-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 12px;
-  margin: 24px 0;
-}
-
-.check {
-  background: var(--bg-card);
-  border: 1px solid var(--border-soft);
-  border-left: 3px solid var(--accent);
-  border-radius: 6px;
-  padding: 12px 16px;
-}
-
-.check .code {
-  font-family: "SF Mono", monospace;
-  font-size: 13px;
-  color: var(--accent);
-  font-weight: 600;
-}
-
-.check .desc {
-  font-size: 13px;
-  color: var(--text-soft);
-  margin-top: 4px;
-}
-
-/* ============ 样本结果表格 ============ */
-.result-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 16px 0;
-  font-size: 14px;
-}
-
-.result-table th, .result-table td {
-  padding: 10px 12px;
-  text-align: left;
-  border-bottom: 1px solid var(--border-soft);
-}
-
-.result-table th {
-  background: var(--bg-card);
-  font-weight: 600;
-  color: var(--text-soft);
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.result-table tr:hover {
-  background: var(--bg-soft);
-}
-
-.pass { color: var(--green); font-weight: 600; }
-.fail { color: var(--red); font-weight: 600; }
-.warn { color: var(--yellow); font-weight: 600; }
-
-/* ============ 三步使用 ============ */
-.steps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
-  margin: 24px 0;
-}
-
-.step {
-  background: var(--bg-card);
-  border: 1px solid var(--border-soft);
-  border-radius: 8px;
-  padding: 24px;
-  position: relative;
-}
-
-.step .num {
-  position: absolute;
-  top: -12px;
-  left: 20px;
-  background: var(--accent-soft);
-  color: white;
-  font-size: 13px;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 12px;
-}
-
-.step h4 {
-  font-size: 16px;
-  font-weight: 600;
-  margin: 8px 0 12px;
-  color: var(--text);
-}
-
-.step p {
-  font-size: 14px;
-  color: var(--text-soft);
-  margin-bottom: 8px;
-}
-
-/* ============ 注意事项 ============ */
-.caveats {
-  background: var(--bg-card);
-  border: 1px solid var(--border-soft);
-  border-radius: 8px;
-  padding: 24px;
-  margin: 16px 0;
-}
-
-.caveats ul {
-  list-style: none;
-  padding: 0;
-}
-
-.caveats li {
-  padding: 8px 0 8px 24px;
-  position: relative;
-  font-size: 15px;
-}
-
-.caveats li::before {
-  content: "�️";
-  position: absolute;
-  left: 0;
-  font-size: 14px;
-}
-
-/* ============ Footer ============ */
-footer {
-  padding: 48px 0;
-  background: var(--bg-soft);
-  color: var(--text-soft);
-  font-size: 14px;
-  text-align: center;
-}
-
-footer a { color: var(--accent); }
-
-/* ============ 响应式 ============ */
-@media (max-width: 768px) {
-  .hero { padding: 64px 0 48px; }
-  .hero h1 { font-size: 32px; }
-  .hero .tagline { font-size: 16px; }
-  section { padding: 48px 0; }
-  h2 { font-size: 24px; }
-}
-
-  </style>
+/* ====== Modal ====== */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:100}
+.modal-bg.show{display:flex}
+.modal{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:24px;max-width:480px;width:90%}
+.modal h3{font-size:16px;margin-bottom:12px}
+.modal p{font-size:13px;color:var(--text-soft);margin-bottom:12px;line-height:1.6}
+.modal pre{background:var(--code-bg);border:1px solid var(--border-soft);border-radius:6px;padding:10px;font-size:11px;margin:8px 0}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
+</style>
 </head>
 <body>
 
-<!-- ============ Hero ============ -->
 <header class="hero">
   <div class="container">
-    <div class="badge">v0.4.1 · MIT License</div>
-    <h1>prompt-micro-innovate</h1>
-    <p class="tagline">
-      抖音 / 短视频 Prompt 微创新 Agent<br>
-      把"已经被验证爆款"的视频生成 prompt 做差异化改写<br>
-      + 21 项硬指标自检告诉你哪个候选能过审
-    </p>
-    <div class="cta-group">
-      <a href="#how-to-use" class="btn btn-primary">▶ 立即使用</a>
-      <a href="https://github.com/baidang201/prompt-micro-innovate" class="btn btn-secondary">★ GitHub 仓库</a>
+    <h1>prompt-micro-innovate<span class="badge">v0.4.1 · 演示模式</span></h1>
+    <div class="tagline">抖音 / 短视频 Prompt 微创新 Agent · 21 项硬指标自检</div>
+    <div class="meta">
+      🎮 <strong>演示模式</strong> — 算法在浏览器跑，<code>不接 API / 不发请求 / 零数据外泄</code>。
+      源码 <a href="https://github.com/baidang201/prompt-micro-innovate" target="_blank" rel="noopener">GitHub</a>
     </div>
   </div>
 </header>
 
-<!-- ============ Stats ============ -->
-<section>
+<main class="main">
   <div class="container">
-    <h2>它省了你多少时间</h2>
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="label">候选生成耗时</div>
-        <div class="value">30 秒</div>
-        <div class="delta">↓ 之前手工脑暴 1-2 小时</div>
-      </div>
-      <div class="stat-card">
-        <div class="label">自检项数</div>
-        <div class="value">21 项</div>
-        <div class="delta">硬指标覆盖 钩子 / 长度 / 逻辑 / 受众 / 骨架</div>
-      </div>
-      <div class="stat-card">
-        <div class="label">撞模板拦截</div>
-        <div class="value">事前</div>
-        <div class="delta">↓ 之前发布后看数据再返工</div>
-      </div>
-      <div class="stat-card">
-        <div class="label">兜底反馈</div>
-        <div class="value">4 条</div>
-        <div class="delta">候选空时主动告诉你下一步</div>
-      </div>
+    <div class="layout">
+
+      <!-- ====== 左：输入区 ====== -->
+      <aside>
+        <div class="panel">
+          <h2><span class="num">1</span>加载示例</h2>
+          <div class="sample-row" id="sampleRow">
+            <button class="sample-chip" data-sample="1">🥟 早餐店夫妻</button>
+            <button class="sample-chip" data-sample="2">🏔 周末爬山（残缺）</button>
+            <button class="sample-chip" data-sample="3">👵 彝族老奶奶</button>
+            <button class="sample-chip" data-sample="0">🧹 清空</button>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top:16px">
+          <h2><span class="num">2</span>输入</h2>
+
+          <div class="input-group">
+            <label>参考 prompt <span class="hint">（必填）</span></label>
+            <textarea id="refInput" placeholder="粘一条你看到的爆款 prompt …"></textarea>
+          </div>
+
+          <div class="input-group">
+            <label>5 个候选 <span class="hint">（用 --- 分隔，留空触发兜底）</span></label>
+            <textarea id="candInput" class="candidate-area" placeholder="候选 1 ...&#10;---&#10;候选 2 ...&#10;---&#10;候选 3 ...&#10;---&#10;候选 4 ...&#10;---&#10;候选 5 ..."></textarea>
+          </div>
+
+          <div class="input-group">
+            <label>目标受众</label>
+            <select id="audienceSelect">
+              <option value="women_18_40">women_18_40（女性 18-40，默认）</option>
+              <option value="men_general">men_general（男性通用）</option>
+              <option value="neutral">neutral（中性）</option>
+            </select>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn btn-primary" id="runBtn">▶ 开始微创新</button>
+            <button class="btn btn-secondary" id="heuristicBtn">🎲 启发式 5 候选</button>
+            <button class="btn btn-secondary" id="clearBtn">🧹 清空</button>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top:16px">
+          <h2><span class="num">3</span>21 项自检规则</h2>
+          <details style="font-size:12px;color:var(--text-soft)">
+            <summary style="cursor:pointer">点击展开完整规则</summary>
+            <div style="margin-top:10px;line-height:1.7">
+              <strong>单候选（18 项）：</strong><br>
+              R2 核心台词复用 · R16 前 3 秒钩子 · R17 长度≤80 · R18 逻辑自洽 · R19 受众钩子 · R20 避雷镜头 · Q1-Q3 三问铁律 · Q4-Q6 芦苇编剧 · 感官/节奏/文化密度 · 相似度阈值 · 撞历史 · 撞避雷<br><br>
+              <strong>跨候选（3 项）：</strong><br>
+              R15 骨架差异化 ≥3 · R21 钩子动词差异化 ≥3 · R22 空候选兜底
+            </div>
+          </details>
+        </div>
+      </aside>
+
+      <!-- ====== 右：结果区 ====== -->
+      <section>
+        <div id="resultArea">
+          <div class="result-empty">
+            <div class="icon">🎬</div>
+            <div class="title">还没有结果</div>
+            <div>选个示例，或粘自己的 prompt + 候选，点「开始微创新」</div>
+          </div>
+        </div>
+      </section>
+
     </div>
   </div>
-</section>
+</main>
 
-<!-- ============ 它是什么 ============ -->
-<section>
-  <div class="container">
-    <h2>它是什么</h2>
-    <p>
-      这是一个<strong>抖音 / 短视频 Prompt 微创新 Agent</strong>。你给它一条"参考爆款"视频生成 prompt，它会：
-    </p>
-    <ol style="padding-left: 24px; margin: 16px 0;">
-      <li>帮你按 <code class="inline">SCAMPER-LP</code> 五维（Substitute / Modify / Adapt / Combine / Put）启发式生成 <strong>5 个差异化候选</strong></li>
-      <li>跑 <strong>21 项硬指标自检</strong>（钩子 / 长度 / 逻辑 / 受众 / 骨架差异化 等），告诉你哪个候选真的能过审、哪个会撞模板</li>
-      <li>候选空 / 候选过少时主动进入<strong>兜底 review</strong>，告诉你"为什么空 + 下一步怎么做"</li>
-    </ol>
-  </div>
-</section>
-
-<!-- ============ 工具链 ============ -->
-<section>
-  <div class="container">
-    <h2>用了什么工具</h2>
-    <div class="toolchain">
-      <div class="tool">
-        <div class="icon">🤖</div>
-        <div class="name">Hermes Agent Platform</div>
-        <div class="role">宿主平台；接收任务、调度 skill、回报结果</div>
-      </div>
-      <div class="tool">
-        <div class="icon">⚙️</div>
-        <div class="name">Codex CLI</div>
-        <div class="role">开发者迭代 skill 本身（修改规则、调阈值）</div>
-      </div>
-      <div class="tool">
-        <div class="icon">🐍</div>
-        <div class="name">innovate.py</div>
-        <div class="role">21 项硬指标自检引擎（纯 Python，零外部依赖）</div>
-      </div>
-      <div class="tool">
-        <div class="icon">💬</div>
-        <div class="name">飞书 CLI（v0.5 待接入）</div>
-        <div class="role">把候选 + 自检结果发到飞书群让圈友投票</div>
-      </div>
-      <div class="tool">
-        <div class="icon">🧠</div>
-        <div class="name">LLM API（v0.5 待接入）</div>
-        <div class="role">候选生成升级到 LLM，强制 5 候选走 5 种骨架</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 21 项自检 ============ -->
-<section>
-  <div class="container">
-    <h2>21 项硬指标自检</h2>
-    <p class="muted">v0.4.1 整合：v0.3 自检（12 项）+ v0.4 新增（6 项单候选）+ v0.4 跨候选（3 项）</p>
-
-    <h3>单候选自检（18 项）</h3>
-    <div class="checks-grid">
-      <div class="check"><div class="code">R2 修订</div><div class="desc">核心台词 ≤1 复用（避免抄原片）</div></div>
-      <div class="check"><div class="code">R16 前 3 秒钩子</div><div class="desc">必须含具体动作 / 物件 / 数字</div></div>
-      <div class="check"><div class="code">R17 长度 ≤80</div><div class="desc">候选 prompt 字数上限 80</div></div>
-      <div class="check"><div class="code">R18 逻辑自洽</div><div class="desc">年龄/年代倒推 ≥8 岁（学龄前才不合常理）</div></div>
-      <div class="check"><div class="code">R19 受众钩子</div><div class="desc">按受众分层（women_18_40 / general）匹配钩子词</div></div>
-      <div class="check"><div class="code">R20 避雷</div><div class="desc">不写"蒸汽朦胧镜头"等模板套话</div></div>
-      <div class="check"><div class="code">Q1 钩子保留</div><div class="desc">reference 的核心钩子不能丢</div></div>
-      <div class="check"><div class="code">Q2 决策空间</div><div class="desc">候选必须给出比参考更多的镜头选择</div></div>
-      <div class="check"><div class="code">Q3 半衰期</div><div class="desc">候选不能比参考更快过时</div></div>
-      <div class="check"><div class="code">Q4 戏根</div><div class="desc">候选必须保留 reference 的"戏根"（身份/物件/承诺）</div></div>
-      <div class="check"><div class="code">Q5 困境突围</div><div class="desc">候选必须含"困境 + 突围"动作</div></div>
-      <div class="check"><div class="code">Q6 只能他说</div><div class="desc">候选必须含"只有这个人物能说"的台词</div></div>
-      <div class="check"><div class="code">感官细节</div><div class="desc">至少 1 个视觉/触觉/听觉/嗅觉细节</div></div>
-      <div class="check"><div class="code">节奏细节</div><div class="desc">含镜头节奏描述（长镜/推近/特写等）</div></div>
-      <div class="check"><div class="code">文化细节</div><div class="desc">至少 1 个地域/年代/职业/民俗符号</div></div>
-      <div class="check"><div class="code">相似度阈值</div><div class="desc">与 reference 的 Jaccard 相似度 <70%</div></div>
-      <div class="check"><div class="code">撞历史</div><div class="desc">与历史已发布 prompt 的相似度不能撞</div></div>
-      <div class="check"><div class="code">撞避雷</div><div class="desc">不能含已知高风险镜头/台词模式</div></div>
-    </div>
-
-    <h3>跨候选自检（3 项）</h3>
-    <div class="checks-grid">
-      <div class="check" style="border-left-color: var(--purple);">
-        <div class="code">R15 骨架差异化</div>
-        <div class="desc">5 候选必须覆盖 ≥3 种骨架（坚守/传承/反悔/对照/被发现）</div>
-      </div>
-      <div class="check" style="border-left-color: var(--purple);">
-        <div class="code">R21 钩子动词差异化</div>
-        <div class="desc">5 候选必须含 ≥3 种钩子动词（致敬/鼓励/心疼/看哭了 等）</div>
-      </div>
-      <div class="check" style="border-left-color: var(--purple);">
-        <div class="code">R22 空 prompt 兜底</div>
-        <div class="desc">new_prompts=[] 时主动告知兜底 + 4 条 guidance</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 3 样本实测 ============ -->
-<section>
-  <div class="container">
-    <h2>真实样本实测（v0.4.1）</h2>
-    <p class="muted">3 个真实样本 × 5 个 SCAMPER-LP 启发式候选 × 21 项自检，<code class="inline">python3 tests/e2e_runner.py</code> 可复现</p>
-
-    <table class="result-table">
-      <thead>
-        <tr><th>样本</th><th>类型</th><th>all_pass</th><th>R15 骨架</th><th>R17 长度</th><th>R18 逻辑</th><th>R19 受众</th><th>R21 钩子</th><th>R22 兜底</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>sample-1</strong><br>早餐店夫妻（152 字）</td>
-          <td>主流程</td>
-          <td><span class="fail">❌</span></td>
-          <td><span class="fail">� 2/3</span></td>
-          <td><span class="fail">� 5/5</span></td>
-          <td><span class="pass">✅</span></td>
-          <td><span class="fail">❌ 5/5</span></td>
-          <td><span class="pass">✅ 干净</span></td>
-          <td>n/a</td>
-        </tr>
-        <tr>
-          <td><strong>sample-2</strong><br>周末爬山（79 字，故意残缺）</td>
-          <td>空 prompt</td>
-          <td><span class="fail">❌</span></td>
-          <td>n/a</td>
-          <td>n/a</td>
-          <td>n/a</td>
-          <td>n/a</td>
-          <td>n/a</td>
-          <td><span class="pass">✅ 已实现</span></td>
-        </tr>
-        <tr>
-          <td><strong>sample-3</strong><br>彝族老奶奶 + 嫁衣（126 字）</td>
-          <td>真实场景</td>
-          <td><span class="fail">❌</span></td>
-          <td><span class="fail">❌ 1/3</span></td>
-          <td><span class="fail">❌ 5/5</span></td>
-          <td><span class="pass">✅ 边界 1/5</span></td>
-          <td><span class="fail">❌ 5/5</span></td>
-          <td><span class="pass">✅ 干净</span></td>
-          <td>n/a</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h3>真实输出示例（sample-2 空 prompt 兜底）</h3>
-<pre><code><span class="j-key">{
-  "all_pass":</span> <span class="j-bool">false</span><span class="j-key">,
-  "fallback_triggered":</span> <span class="j-bool">true</span><span class="j-key">,
-  "fallback_reason":</span> <span class="j-str">"new_prompts 为空，v0.4 自检无法跨候选对比；进入 Profile §6.1 兜底 review…"</span><span class="j-key">,
-  "guidance":</span> <span class="j-key">[
-    "</span><span class="j-str">1. 用 SCAMPER-LP 五维生成候选</span><span class="j-key">",
-    "</span><span class="j-str">2. 每个候选 MUST 走不同骨架</span><span class="j-key">",
-    "</span><span class="j-str">3. 每个候选 MUST 含受众钩子词</span><span class="j-key">",
-    "</span><span class="j-str">4. 每个候选长度 MUST ≤ 80 字</span><span class="j-key">"
-  ]</span>
-<span class="j-key">}</span></code></pre>
-
-    <h3>R18 边界验证（sample-3 候选 3）</h3>
-    <pre><code><span class="j-key">输入</span>: <span class="j-str">"1958年开始绣嫁衣的彝族老奶奶。今年70岁。"</span>
-<span class="j-key">检查</span>: R18 逻辑自洽（年龄/年代倒推 ≥8 岁）
-<span class="j-key">结果</span>: <span class="j-bool">false</span> — <span class="j-str">"70岁 - 1958年 = -1888岁，不合常理（学龄前）"</span></code></pre>
-  </div>
-</section>
-
-<!-- ============ 如何使用 ============ -->
-<section id="how-to-use">
-  <div class="container">
-    <h2>三步上手</h2>
-
-    <div class="steps">
-      <div class="step">
-        <span class="num">1</span>
-        <h4>克隆仓库</h4>
-<pre><code>git clone https://github.com/baidang201/prompt-micro-innovate.git
-cd prompt-micro-innovate</code></pre>
-      </div>
-
-      <div class="step">
-        <span class="num">2</span>
-        <h4>放进 skills 目录</h4>
-<pre><code># Codex
-ln -s "$(pwd)" ~/.codex/skills/prompt-micro-innovate
-
-# 或 Hermes
-cp -r "$(pwd)" ~/.hermes/skills/prompt-micro-innovate</code></pre>
-      </div>
-
-      <div class="step">
-        <span class="num">3</span>
-        <h4>调用</h4>
-<pre><code>import sys
-sys.path.insert(0, "scripts")
-from innovate import micro_innovate_v04
-
-ref = "你的参考 prompt"
-cands = ["c1","c2","c3","c4","c5"]
-
-result = micro_innovate_v04(ref, cands)
-print(result["all_pass"])</code></pre>
-      </div>
-    </div>
-
-    <h3>在 Hermes Agent 里直接说（最常用）</h3>
-    <pre><code>帮我把这条 prompt 做微创新：[粘你的参考 prompt]。
-我要 5 个差异化候选，每个 ≤80 字，给我过自检的结果。</code></pre>
-  </div>
-</section>
-
-<!-- ============ 注意事项 ============ -->
-<section>
-  <div class="container">
-    <h2>注意事项</h2>
-    <div class="caveats">
-      <h3 style="margin-top: 0;">它做不了什么</h3>
-      <ul>
-        <li><strong>不能直接生成视频</strong>：它只做 prompt 改写 + 自检；视频生成要交给剪映 / 即梦 / 可灵</li>
-        <li><strong>不能保证 100% 过审</strong>：21 项自检是基于"经验规律的硬指标"，不是平台算法</li>
-        <li><strong>不能替代人工审美</strong>：自检通过 ≠ 视频会爆；最终还是要看数据</li>
-      </ul>
-    </div>
-
-    <div class="caveats">
-      <h3 style="margin-top: 0;">什么时候需要人工介入</h3>
-      <ul>
-        <li>5 候选全失败：自己重写参考 prompt，补充"奠基动作"和"具体物件"</li>
-        <li>R18 边界误报（如「70 岁讲 90 年前的故事」被判不合常理）：手动加注释或调整阈值</li>
-        <li>受众分层需要切换（如从 <code class="inline">women_18_40</code> 切到 <code class="inline">men_18_35</code>）：手动改 <code class="inline">audience</code> 参数</li>
-      </ul>
-    </div>
-
-    <div class="caveats">
-      <h3 style="margin-top: 0;">已知问题和后续改进方向</h3>
-      <ul>
-        <li>v0.4.x 候选生成用启发式，<strong>5 候选可能走相同骨架</strong>（如都走"坚守"）→ v0.5 接 LLM 强制 5 候选走 5 种不同骨架</li>
-        <li>v03 失败报告未细分到 <code class="inline">luwei_checks.q5/q6</code> 子项 → 优先级 3，待修</li>
-        <li>静态参数尾巴正则有 SyntaxWarning（<code class="inline">\s</code> 在 raw string 中）→ 待清理</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ============ Footer ============ -->
 <footer>
   <div class="container">
-    <p>
-      <strong>prompt-micro-innovate</strong> v0.4.1 · MIT License
-    </p>
-    <p style="margin-top: 8px;">
-      <a href="https://github.com/baidang201/prompt-micro-innovate" target="_blank" rel="noopener">GitHub 仓库</a> ·
-      <a href="https://github.com/baidang201/prompt-micro-innovate#readme" target="_blank" rel="noopener">完整使用说明书</a> ·
-      <a href="https://github.com/baidang201/prompt-micro-innovate/blob/master/CHANGELOG.md" target="_blank" rel="noopener">更新日志</a>
-    </p>
-    <p class="muted" style="margin-top: 16px; font-size: 12px;">
-      基于 game-methodology M00 + SCAMPER + 三问铁律 + 芦苇编剧维度
-    </p>
+    prompt-micro-innovate v0.4.1 · MIT License
+    <br>
+    <a href="https://github.com/baidang201/prompt-micro-innovate" target="_blank" rel="noopener">GitHub 仓库</a>·
+    <a href="https://github.com/baidang201/prompt-micro-innovate/blob/master/CHANGELOG.md" target="_blank" rel="noopener">更新日志</a>·
+    <a href="https://github.com/baidang201/prompt-micro-innovate/blob/master/README.md" target="_blank" rel="noopener">完整说明书</a>
+    <br>
+    <span style="opacity:.6;font-size:11px">所有算法在浏览器内运行 · 无网络请求 · 零数据外泄</span>
   </div>
 </footer>
 
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <h3 id="modalTitle">提示</h3>
+    <p id="modalBody"></p>
+    <pre id="modalCode" style="display:none"></pre>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" id="modalClose">关闭</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============ 常量（从 innovate.py 移植） ============
+const HOOK_PATTERNS = {
+  "未完成承诺+反向诉求": ["鼓励","点赞","祝福","加油","给我","能不能","能否","请"],
+  "共情反差": ["但是","其实","却","偏偏","然而"],
+  "见证时刻": ["最后一次","终于","终于圆","终于完","最后一","退休","毕业"],
+  "底层逆袭": ["逆袭","反击","证明","坚持","不放弃"],
+  "失去恐惧": ["害怕","担心","不要","别","即将","再也"],
+  "未解悬念": ["如果","会不会","还能","还能"]
+};
+const SENSORY_PATTERNS = ["泥巴","磨痕","磨得","掉漆","泛黄","发白","起毛","破损","裂","缝补","补丁","针脚","油渍","油墨","猫毛","煤渣","落叶","灰尘","烟灰","灰烬","汗","血迹","泪","眼红","昏黄","暮色","暖金色","夕阳","破晓","暗红","粗糙","光滑","磨软","磨硬","硬邦邦","软乎乎","温温","嘶","咔嚓","鸣笛","呼啸","呢喃","哽咽","沙哑","煤球","烟味","汗味","机油","工牌","纽扣","拉链","胶带","手帕","铁丝","皴裂","脱皮","结痂","皱裂","粗糙","凸起"];
+const RHYTHM_PATTERNS = ["长镜头","推近","缓缓","远景","中近景","特写","慢放","节奏","节拍","口型","时长","秒"];
+const CULTURAL_PATTERNS = ["弄堂","草原","山区","山村","豫北","陕北","东北","上海","广州","深圳","成都","新疆","西藏","黄浦江","外滩","天际线","万国旗","梧桐","石库门","停机坪","手术室","茅草房","窑洞","毡帽","羊毛毡","大槐树","狗窝","鸡窝","祠堂","作坊","教室","操场","站台","车站","早餐店","面馆","包子铺","南极","极地","边疆","孤岛","海岛","山区","山村","讲台","退役","退伍","工牌","军人","护士","教师","机长","司机","木雕","文物","传承","手艺","瓷器","早餐","列车","科考","辅导员","支教","大雪","冰碴","积雪","霜降","立冬","薄雾","破晓","暮色"];
+const XI_GEN_PATTERNS = ["领回来","收养","收留","接过","交到","留给","留给","留给","缝补","补丁","针脚","磨痕","开裂","掉漆","发白","泛黄","皴裂","传承","手艺","交棒","接班","关门","开业","最后一针","最后一笼","最后一年","退休","离开"];
+const DILEMMA_PATTERNS = ["求","孤独","无助","穷","病","苦","累","难","熬","忍","撑","撑不住","快不行了","快撑不住","没人","没指望","没人帮","被撵","被赶","被骂","被笑","被嫌弃"];
+const BREAKTHROUGH_PATTERNS = ["去","做","走","回","坚持","继续","撑过去","挺住","站起来","走出来","挺过来","熬过来","扛过去","撑过来","挺过去"];
+const SPEECH_CUE_PATTERNS = [/「[^」]*」/g, /「[^」]*」/g, /"[^"]*"/g, /：[^。]+。/g];
+const SKELETON_TEMPLATES = {
+  "坚守": ["年","每天","一直","坚持","守","凌晨"],
+  "传承": ["交给","接班","离开","最后一","师父","传承"],
+  "反悔": ["本想","差点","最后","决定","没想到","但是"],
+  "对照": ["当年","过去","如今","曾经","那时候","对比"],
+  "被发现": ["路人","发现","第一次","原来","真相","镜头后"]
+};
+const HOOK_WORDS_BY_AUDIENCE = {
+  "women_18_40": ["心疼","求求","帮忙","忍不住","看哭了","谁懂","麻烦帮我"],
+  "men_general": ["致敬","支持","顶一个","干得漂亮","硬核"],
+  "neutral": ["请点赞","麻烦帮我","谢谢","求赞"]
+};
+const FOUNDING_ACTIONS = ["领","收养","等待","坚守","坚持","缝补","修补","绣","打磨","做了","开了","修了","种了","照顾","伺候","陪伴","送","接","教","传","留给","留给孙女","留给儿子","留给","每天","凌晨","30年","40年","50年","60年","70年","一辈子","一辈子只做一件事","一辈子只做","一辈子只"];
+const CAMERA_VAPOR_REGEX = /(?:镜头从(?:外|门|远|全景)?(?:推|拉|摇|移)?(?:入|到|向|至)?|慢慢(?:拉|推|摇|移)|朦胧(?:了|了灯|灯光)|蒸汽(?:缭绕|弥漫|升腾))[\u4e00-\u9fa5，,。]{15,}/;
+
+// ============ 工具函数 ============
+function tokenize(text){
+  const cleaned = text.replace(/[，。！？、；：\s\n\d:]+/g,'');
+  const grams = new Set();
+  for(let i=0;i<cleaned.length-1;i++) grams.add(cleaned.substr(i,2));
+  return grams;
+}
+function jaccard(a,b){
+  const sa = tokenize(a), sb = tokenize(b);
+  if(!sa.size||!sb.size) return 0;
+  let inter = 0;
+  for(const x of sa) if(sb.has(x)) inter++;
+  return Math.round(inter / new Set([...sa,...sb]).size * 10000)/100;
+}
+function identifyHooks(text){
+  const hits = [];
+  for(const [name, kws] of Object.entries(HOOK_PATTERNS)){
+    for(const kw of kws){
+      if(text.includes(kw)){ hits.push(name); break; }
+    }
+    if(hits.length>=2) break;
+  }
+  return hits;
+}
+function detailDensity(text){
+  return {
+    sensory: SENSORY_PATTERNS.filter(p=>text.includes(p)).length,
+    rhythm: RHYTHM_PATTERNS.filter(p=>text.includes(p)).length,
+    cultural: CULTURAL_PATTERNS.filter(p=>text.includes(p)).length
+  };
+}
+function splitSentences(text){
+  return text.split(/[。！？\n]+/).map(s=>s.trim()).filter(s=>s.length>3);
+}
+
+// ============ 三问铁律 + 芦苇编剧（v0.3 旧 6 项） ============
+function threeQuestions(ref, neu, refHooks){
+  const refSent = splitSentences(ref);
+  const neuSent = splitSentences(neu);
+  let q1=true, q2=true, q3=true;
+  // Q1 钩子保留：ref 的钩子关键词在 neu 中至少出现 1 次
+  if(refHooks.length){
+    const hasAnyHook = refHooks.some(h=>{
+      const kws = HOOK_PATTERNS[h]||[];
+      return kws.some(kw=>neu.includes(kw));
+    });
+    q1 = hasAnyHook;
+  }
+  // Q2 决策空间：neu 含更多镜头/动作词
+  const refDecisions = (ref.match(/[\u4e00-\u9fa5]{2,4}/g)||[]).length;
+  const neuDecisions = (neu.match(/[\u4e00-\u9fa5]{2,4}/g)||[]).length;
+  q2 = neuDecisions > refDecisions * 0.8;
+  // Q3 半衰期：neu 含具体时间/数字（避免马上过时）
+  q3 = /\d/.test(neu) || /每天|凌晨|每年|一辈子/.test(neu);
+  return {q1_hook_preserved:q1, q2_more_decisions:q2, q3_past_half_life:q3};
+}
+function luweiChecks(ref, neu){
+  // Q4 戏根：ref 中的关键身份/物件至少 1 个在 neu
+  let q4=false;
+  for(const p of XI_GEN_PATTERNS){
+    if(ref.includes(p) && neu.includes(p)){ q4=true; break; }
+  }
+  // Q5 困境突围：neu 同时含困境词和突围词
+  const hasDilemma = DILEMMA_PATTERNS.some(p=>neu.includes(p));
+  const hasBreakthrough = BREAKTHROUGH_PATTERNS.some(p=>neu.includes(p));
+  const q5 = hasDilemma && hasBreakthrough;
+  // Q6 只能他说：neu 含具体台词
+  let q6=false;
+  for(const pat of SPEECH_CUE_PATTERNS){
+    if(pat.test(neu)){ q6=true; break; }
+  }
+  return {q4_xi_gen_retained:q4, q5_dilemma_breakthrough_retained:q5, q6_only_he_can_say:q6};
+}
+
+// ============ v0.4 新增 6 项单候选 ============
+function checkR2Revised(ref, neu){
+  const refSents = splitSentences(ref);
+  let reusedCount=0, reused=[];
+  for(const s of refSents){
+    if(s.length>=8 && neu.includes(s)){ reusedCount++; reused.push(s); }
+  }
+  return {
+    pass: reusedCount<=1,
+    detail: `reference 有 ${refSents.length} 个完整句 / new 复用 ${reusedCount} 个（上限 1）`,
+    reused_sentences: reused
+  };
+}
+function checkR16_3secHook(neu){
+  const first30 = neu.replace(/\s+/g,'').substr(0,30);
+  const hasDigit = /\d+(?:年|岁|天|个|月|代|次|分|秒|小时)?/.test(first30);
+  const hasContrast = /(?:本应|原本|没想到|可是|但是|却|然而)/.test(first30);
+  const hasSuspense = /(?:…|\.{3}|？|!|为什么|谁|怎样|怎么)/.test(first30);
+  const hit = [];
+  if(hasDigit) hit.push('数字');
+  if(hasContrast) hit.push('反差');
+  if(hasSuspense) hit.push('悬念');
+  return {
+    pass: hit.length>=1,
+    detail: `前 30 字含钩子：${hit.length?hit.join('+'):'无'}`,
+    first_30: first30
+  };
+}
+function checkR17Length(neu, max=80){
+  const len = neu.length;
+  return {
+    pass: len<=max,
+    detail: `长度 ${len} 字（上限 ${max}）`,
+    too_long: len>max,
+    actual_length: len
+  };
+}
+function checkR18Logic(ref, neu){
+  // 抓 ref / neu 中的年龄 + 时间跨度，倒推 ≥8 岁
+  const issues = [];
+  const ageRe = /(\d{1,3})\s*岁/;
+  const yearRe = /(\d{2,4})\s*年/;
+  const yearsAgoRe = /(\d{1,3})\s*年前/;
+  const ageMatchRef = ref.match(ageRe);
+  if(ageMatchRef){
+    const age = parseInt(ageMatchRef[1]);
+    const yearsAgoMatch = ref.match(yearsAgoRe);
+    if(yearsAgoMatch){
+      const yearsAgo = parseInt(yearsAgoMatch[1]);
+      const startAge = age - yearsAgo;
+      if(startAge < 8){
+        issues.push(`${age}岁 - ${yearsAgo}年 = ${startAge}岁，不合常理（学龄前）`);
+      }
+    }
+  }
+  // 也检查候选本身的逻辑
+  const ageMatchNeu = neu.match(ageRe);
+  if(ageMatchNeu){
+    const age = parseInt(ageMatchNeu[1]);
+    const yearMatchNeu = neu.match(/(\d{4})\s*年/);
+    if(yearMatchNeu){
+      const year = parseInt(yearMatchNeu[1]);
+      const currentYear = new Date().getFullYear();
+      const yearsAgo = currentYear - year;
+      const startAge = age - yearsAgo;
+      if(startAge < 8 && yearsAgo > 0){
+        issues.push(`${age}岁 - ${year}年 = ${startAge}岁，不合常理（学龄前）`);
+      }
+    }
+  }
+  return {
+    pass: issues.length===0,
+    detail: `逻辑问题：${issues.length?JSON.stringify(issues):'无'}`,
+    issues
+  };
+}
+function checkR19AudienceHook(neu, audience){
+  const kws = HOOK_WORDS_BY_AUDIENCE[audience]||HOOK_WORDS_BY_AUDIENCE.neutral;
+  const matched = kws.filter(kw=>neu.includes(kw));
+  return {
+    pass: matched.length>=1,
+    detail: `受众 '${audience}' 钩子词匹配：${matched.length?matched.join(','):'无'}`,
+    matched
+  };
+}
+function checkR20NoVaporCamera(neu){
+  // 计算避雷镜头词出现次数
+  const matches = neu.match(/镜头从|慢慢(?:拉|推|摇|移)|朦胧(?:了|了灯|灯光)|蒸汽(?:缭绕|弥漫|升腾)/g)||[];
+  const has = CAMERA_VAPOR_REGEX.test(neu);
+  return {
+    pass: !has,
+    detail: has ? `检测到模板套话镜头：${matches.join('、')}` : '无模板套话镜头',
+    count: matches.length
+  };
+}
+
+// ============ 跨候选 3 项 ============
+function checkR15Skeleton(neu){
+  const hits = [];
+  for(const [name, kws] of Object.entries(SKELETON_TEMPLATES)){
+    if(kws.some(kw=>neu.includes(kw))){ hits.push(name); }
+  }
+  return hits.length ? hits : ['未知'];
+}
+function checkR15SkeletonDiversity(candidates){
+  const all = new Set();
+  for(const c of candidates){ for(const s of checkR15Skeleton(c)) all.add(s); }
+  return {
+    pass: all.size>=3,
+    detail: `5 候选覆盖骨架：${JSON.stringify([...all])}（应 ≥3）`,
+    unique_count: all.size
+  };
+}
+function checkR21HookDiversity(candidates){
+  const hookVerbs = ["点赞致敬","点赞鼓励","求求","麻烦帮我","看哭了","忍不住","心疼","干得漂亮","顶一个","请支持","求赞"];
+  const tailNoise = [/(?:9\s*[:：]\s*16\s*竖屏|4K\s*高清|60\s*秒以[内外]|竖屏|高清|\d+K\s*高清).*$/];
+  const hooks = [];
+  for(const c of candidates){
+    let matched = null;
+    for(const v of hookVerbs){ if(c.includes(v)){ matched=v; break; } }
+    if(matched){ hooks.push(matched); continue; }
+    let tailSrc = c;
+    for(const p of tailNoise) tailSrc = tailSrc.replace(p,'');
+    const tail = tailSrc.trim().slice(-12);
+    hooks.push(tail ? `(尾:${tail})` : '(尾:空)');
+  }
+  const unique = new Set(hooks);
+  return {
+    pass: unique.size>=3,
+    detail: `5 候选钩子动词：${JSON.stringify(hooks)} / 唯一数 ${unique.size}（应 ≥3）`,
+    hooks,
+    unique_count: unique.size
+  };
+}
+
+// ============ 整合主流程 ============
+function microInnovateV04(reference, newPrompts, audience='women_18_40', maxLength=80, simThreshold=70){
+  if(!newPrompts || newPrompts.length===0){
+    return {
+      per_candidate:[],
+      cross_candidate:{},
+      all_pass:false,
+      fallback_triggered:true,
+      fallback_reason:"new_prompts 为空，v0.4 自检无法跨候选对比；进入 Profile §6.1 兜底 review，要求调用方先按 SCAMPER-LP 生成 ≥3 个候选。",
+      guidance:[
+        "1. 用 SCAMPER-LP 五维（Substitute / Modify / Adapt / Combine / Put）启发式或 LLM 生成候选",
+        "2. 每个候选 MUST 走不同骨架（坚守 / 传承 / 反悔 / 对照 / 被发现）",
+        "3. 每个候选 MUST 含受众钩子词（women_18_40：心疼 / 看哭了 / 忍不住 / 致敬 等）",
+        "4. 每个候选长度 MUST ≤ 80 字"
+      ]
+    };
+  }
+  const per = [];
+  for(const np of newPrompts){
+    const coreHooks = identifyHooks(reference);
+    const sim = jaccard(reference, np);
+    const detail = detailDensity(np);
+    const q = threeQuestions(reference, np, coreHooks);
+    const lq = luweiChecks(reference, np);
+    const v04 = {
+      r2_revised: checkR2Revised(reference, np),
+      r16_3sec_hook: checkR16_3secHook(np),
+      r17_length: checkR17Length(np, maxLength),
+      r18_logic: checkR18Logic(reference, np),
+      r19_audience_hook: checkR19AudienceHook(np, audience),
+      r20_no_vapor_camera: checkR20NoVaporCamera(np)
+    };
+    const v03Pass = sim<simThreshold && q.q1_hook_preserved && q.q2_more_decisions && q.q3_past_half_life
+      && lq.q4_xi_gen_retained && lq.q5_dilemma_breakthrough_retained && lq.q6_only_he_can_say
+      && detail.sensory>=1 && detail.cultural>=1;
+    const v04Pass = Object.values(v04).every(c=>c.pass);
+    per.push({
+      new_prompt: np,
+      v03: {
+        similarity_to_reference: sim,
+        detail_score: detail,
+        three_questions: q,
+        luwei_checks: lq,
+        passed: v03Pass
+      },
+      v04: v04,
+      all_pass: v03Pass && v04Pass
+    });
+  }
+  const cross = {
+    r15_skeleton_diversity: checkR15SkeletonDiversity(newPrompts),
+    r21_hook_diversity: checkR21HookDiversity(newPrompts)
+  };
+  const crossPass = Object.values(cross).every(c=>c.pass);
+  return {
+    per_candidate: per,
+    cross_candidate: cross,
+    all_pass: crossPass && per.every(c=>c.all_pass),
+    fallback_triggered: false
+  };
+}
+
+// ============ 失败项修改建议 ============
+const FIX_TIPS = {
+  r2_revised: "试着换掉台词里的核心句（比如把'我不为赚钱'改成'我们俩不为赚钱'），最多只能复用 1 个完整句",
+  r16_3sec_hook: "前 30 字加具体数字（'凌晨 3 点'）、反差词（'但是'/'却'）或悬念（'为什么'/'谁'）",
+  r17_length: "删掉参数尾巴（'9:16 竖屏，4K 高清，60 秒以内'）和不必要的修饰，控制在 80 字以内",
+  r18_logic: "重新检查年龄和年代跨度，倒推起始年龄 ≥8 岁（比如改成'30 岁开始绣，绣了 50 年'）",
+  r19_audience_hook: "在文末加受众钩子词（女性向：'心疼 / 求求 / 忍不住'；男性向：'致敬 / 硬核'）",
+  r20_no_vapor_camera: "换成具体镜头（'镜头从她膝盖上褪色的绣绷起'），不要用'镜头从外推入…朦胧…'这种模板套话",
+  q1_hook_preserved: "保留参考 prompt 中的核心钩子词（'点赞 / 鼓励 / 终于 / 坚持'等）",
+  q2_more_decisions: "给候选加更多镜头决策（具体到'特写 / 推近 / 慢放 / 长镜头'等动作词）",
+  q3_past_half_life: "加具体时间锚点（'每天凌晨 3 点'/'30 年'），让 prompt 不会随时间过时",
+  q4_xi_gen_retained: "保留参考中的关键身份/物件（'老板娘'/'包子'/'灶台蒸汽'）",
+  q5_dilemma_breakthrough_retained: "同时加困境词（'穷 / 累 / 没人帮'）和突围词（'坚持 / 撑过去 / 站起来'）",
+  q6_only_he_can_say: "加一句具体台词（用「」或引号包起来），说出只有这个人物能说的话",
+  sensory: "加感官细节（'煤油灯 / 老花镜 / 皴裂 / 针脚'），至少 1 个",
+  cultural: "加地域/年代/职业/民俗符号（'弄堂 / 豫北 / 退役军人 / 传承手艺'）"
+};
+
+// ============ 启发式候选生成（5 维 SCAMPER-LP） ============
+function heuristicGenerate(ref){
+  // 简化版：基于 ref 的关键词做 5 维变换
+  const hasOld = /(\d+)\s*岁/.test(ref);
+  const hasPlace = /南方|北方|西部|山村|小镇/.test(ref);
+  const hasTime = /(\d+)\s*年前|(\d+)\s*年/.test(ref);
+  const hasObject = /绣|包子|茶|面|豆腐/.test(ref);
+  const subjectMatch = ref.match(/[一-龥]{2,3}(?:老奶奶|老爷爷|老板|老板娘|夫妻|老人)/);
+  const subject = subjectMatch ? subjectMatch[0] : '主人公';
+
+  return [
+    // Substitute
+    ref.replace(/(?:南方|北方|西部|)?(小镇|山村|村里)/, '西北').replace(/(?:早餐|包子|面|茶)/, '豆腐') + ' 每天凌晨2点开工。',
+    // Modify（加物件）
+    ref.replace(/[，。](\d+)/, '。墙上老座钟停在3:17。') + '',
+    // Adapt（嫁接 80 年代）
+    '80 年代的' + ref.replace(/帮我生成一个视频[:：]/, '').trim(),
+    // Combine（加子女接班）
+    ref.replace(/[，。]([^，。]{0,10}?)说/, '。儿子去年辞了城里的工作回乡接班。$1说：'),
+    // Put（视角反转）
+    ref.replace(/帮我生成一个视频[:：]/, '帮我生成一个视频（第一人称视角）：').replace(/(?:他|她|老板|老板娘|老奶奶)/, '我')
+  ].slice(0,5);
+}
+
+// ============ 3 个示例 ============
+const SAMPLES = {
+  '1': {
+    ref: '帮我生成一个视频：南方小镇上，一家开在巷口的早餐店。每天凌晨3点，老板娘揉面，老板烧火，灶台蒸汽朦胧了灯光。30年了，他们每天只睡4个小时。镜头从门外推进屋内，从第一笼包子出炉到天亮；老板说："我不为赚钱，就是想让早起赶路的人有口热的。"9:16 竖屏，4K 高清，60 秒以内。请给这对夫妻点赞鼓励。',
+    cands: [
+      '帮我生成一个视频：北方山村里，一家开在村口的豆腐坊。每天凌晨2点，老汉磨豆，老伴烧火。40年了。镜头从雪地里推进屋内。老汉说：「不为赚钱，就是想让上山砍柴的人有口热的。」请给这对夫妻点赞鼓励。',
+      '帮我生成一个视频：南方小镇巷口的早餐店。墙上老座钟停在3:17。每天凌晨3点，老板娘揉面。30年了。镜头从门缝钻进屋内。老板说：「不为赚钱，就是想让早起赶路的人有口热的。」',
+      '帮我生成一个视频：80 年代的南方小镇，一家开在巷口的早餐店。老板娘围着蓝布围裙揉面。30年了。镜头从贴满奖状的木门推进屋内。老板说：「不为赚钱，就是想让早起赶路的人有口热的。」',
+      '帮我生成一个视频：南方小镇的早餐店，开了 30 年。儿子去年辞了城里的工作回乡接班。凌晨3点，老板娘揉面。镜头从门外推进屋内。儿子说：「爸妈不为赚钱，就是想让早起赶路的人有口热的，我得替他们把这口锅守住。」请给这对夫妻点赞鼓励。',
+      '帮我生成一个视频（第一人称视角）：我是老板娘。南方小镇巷口的早餐店开了30年。每天凌晨3点，我揉面，老板烧火。镜头从我的眼睛看出去。我对自己说：「不为赚钱，就是想让早起赶路的人有口热的。」请给这对夫妻点赞。'
+    ]
+  },
+  '2': {
+    ref: '帮我生成一个视频：周末，几个朋友约好去爬山。他们爬到山顶，坐下来聊天看风景吃零食。天气很好，山下景色很美。大家很开心，拍了几张照片就下山了。9:16 竖屏。',
+    cands: []
+  },
+  '3': {
+    ref: '帮我生成一个视频：云南山村的彝族老奶奶，今年 70 岁，还在绣她 50 年前没绣完的嫁衣。镜头从她布满老茧的手指特写起，慢慢拉到整件嫁衣。她说："我要在闭眼之前把它绣完，留给孙女。" 9:16 竖屏，4K 高清，60 秒以内。请给这位老奶奶点赞祝福。',
+    cands: [
+      '帮我生成一个视频：贵州苗寨的阿妈，今年72岁，还在绣她30年前没绣完的百鸟衣。镜头从她膝盖上褪色的绣绷起，慢慢拉到整件衣裳。她说：「闭眼之前要把它绣完，传给儿媳妇。」请给这位阿妈点赞祝福。',
+      '帮我生成一个视频：云南山村的彝族老奶奶，今年70岁，还在绣她50年前没绣完的嫁衣。煤油灯下，老花镜压在鼻梁上。镜头从她布满老茧的手指特写起，慢慢拉到整件嫁衣。她说：「我要在闭眼之前把它绣完，留给孙女。」',
+      '帮我生成一个视频：1958 年开始绣嫁衣的彝族老奶奶，今年70岁。镜头从1958年她绣的第一针起。她说：「50年了，从黑发绣到白发。闭眼之前要把它绣完，留给孙女。」',
+      '帮我生成一个视频：云南山村的彝族老奶奶，今年70岁，带着女儿一起绣她50年前没绣完的嫁衣。镜头从母女俩对坐的手指特写起。她说：「闭眼之前要把它绣完，留给孙女，也留给女儿一段我们一起走过的日子。」请点赞祝福。',
+      '帮我生成一个视频（孙女第一人称视角）：云南山村，奶奶今年70岁，还在绣她50年前没绣完的嫁衣。我从小看奶奶绣。镜头从我手里针线起。奶奶说：「闭眼之前要把它绣完，留给你。」请给奶奶点赞。'
+    ]
+  }
+};
+
+// ============ UI 渲染 ============
+function highlightJSON(obj){
+  return JSON.stringify(obj, null, 2)
+    .replace(/"([^"]+)":/g, '<span class="j-key">"$1"</span>:')
+    .replace(/: ("[^"]*")/g, ': <span class="j-str">$1</span>')
+    .replace(/: (true|false)/g, ': <span class="j-bool">$1</span>')
+    .replace(/: (\d+\.?\d*)/g, ': <span class="j-num">$1</span>');
+}
+function walkFails(obj, prefix='', out=[]){
+  if(obj && typeof obj==='object'){
+    for(const k of ['pass','passed']){
+      if(k in obj && typeof obj[k]==='boolean'){
+        if(!obj[k]){
+          const reason = obj.reason || obj.detail || '';
+          out.push({key:prefix||'<root>', reason});
+        }
+        return out;
+      }
+    }
+    for(const [k,v] of Object.entries(obj)){
+      if(k.startsWith('_')) continue;
+      walkFails(v, prefix?`${prefix}.${k}`:k, out);
+    }
+  }
+  return out;
+}
+function renderResult(result, ref, cands){
+  const area = document.getElementById('resultArea');
+  if(result.fallback_triggered){
+    area.innerHTML = `
+      <div class="summary fallback">
+        <span class="badge-large fallback">🛡️ R22 兜底触发</span>
+        <div class="detail">${result.fallback_reason}</div>
+      </div>
+      <div class="panel" style="margin-top:16px">
+        <h2>📋 下一步建议</h2>
+        <ul style="list-style:none;padding:0">
+          ${result.guidance.map(g=>`<li style="padding:8px 0;color:var(--text-soft);font-size:13px;border-bottom:1px solid var(--border-soft)">${g}</li>`).join('')}
+        </ul>
+      </div>
+      <details class="json-toggle" style="margin-top:16px">
+        <summary>🔍 查看完整 JSON</summary>
+        <pre>${highlightJSON(result)}</pre>
+      </details>
+    `;
+    return;
+  }
+  const pc = result.per_candidate;
+  const cross = result.cross_candidate;
+  let html = '';
+  html += `<div class="summary ${result.all_pass?'pass':'fail'}">
+    <span class="badge-large ${result.all_pass?'pass':'fail'}">${result.all_pass?'✅ 全部通过':'❌ 未通过'}</span>
+    <div class="detail">${pc.length} 个候选 · ${Object.values(cross).filter(c=>c.pass).length}/${Object.keys(cross).length} 个跨候选检查通过</div>
+  </div>`;
+  // 跨候选
+  html += `<div class="panel"><h2>� 跨候选检查</h2><div class="cross-grid">`;
+  for(const [k,v] of Object.entries(cross)){
+    html += `<div class="cross-item ${v.pass?'pass':'fail'}">
+      <div class="code ${v.pass?'pass':'fail'}">${v.pass?'✅':'❌'} ${k}</div>
+      <div class="detail">${v.detail||''}</div>
+    </div>`;
+  }
+  html += `</div></div>`;
+  // 单候选
+  html += `<div class="panel"><h2>� 候选逐项检查（${pc.length} 个）</h2>`;
+  pc.forEach((c,idx)=>{
+    const text = cands[idx] || '';
+    const fails = walkFails({v03:c.v03, v04:c.v04});
+    html += `<div class="candidate-card">
+      <div class="candidate-head">
+        <span class="idx">候选 ${idx+1}</span>
+        <span class="len">${text.length} 字</span>
+        <span class="verdict ${c.all_pass?'pass':'fail'}">${c.all_pass?'✅ 通过':'❌ '+(fails.length)+' 项失败'}</span>
+      </div>
+      <div class="candidate-text">${escapeHtml(text)}</div>
+      ${fails.length?`<div class="fail-list">${fails.map(f=>{
+        const code = f.key.split('.').pop();
+        const tip = FIX_TIPS[code] || '检查这条规则';
+        return `<div class="fail-item">
+          <span class="code">${f.key}</span>
+          ${f.reason?`<div class="reason">${escapeHtml(f.reason)}</div>`:''}
+          <div class="fix">${escapeHtml(tip)}</div>
+        </div>`;
+      }).join('')}</div>`:`<div class="pass-item">✅ 全部 21 项检查通过</div>`}
+    </div>`;
+  });
+  html += `</div>`;
+  // JSON
+  html += `<details class="json-toggle">
+    <summary>🔍 查看完整 JSON（可复制粘回 Codex / Claude 继续讨论）</summary>
+    <pre>${highlightJSON(result)}</pre>
+  </details>`;
+  area.innerHTML = html;
+}
+function escapeHtml(s){
+  return (s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ============ 事件绑定 ============
+document.querySelectorAll('.sample-chip').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const sid = btn.dataset.sample;
+    document.querySelectorAll('.sample-chip').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    if(sid==='0'){
+      document.getElementById('refInput').value='';
+      document.getElementById('candInput').value='';
+      document.getElementById('resultArea').innerHTML=`<div class="result-empty"><div class="icon">🧹</div><div class="title">已清空</div></div>`;
+      return;
+    }
+    const s = SAMPLES[sid];
+    document.getElementById('refInput').value = s.ref;
+    document.getElementById('candInput').value = s.cands.join('\n---\n');
+  });
+});
+
+document.getElementById('runBtn').addEventListener('click',()=>{
+  const ref = document.getElementById('refInput').value.trim();
+  const rawCands = document.getElementById('candInput').value;
+  const audience = document.getElementById('audienceSelect').value;
+  if(!ref){
+    document.getElementById('modalTitle').textContent='⚠️ 缺参考 prompt';
+    document.getElementById('modalBody').textContent='请先填入参考 prompt，或点上方示例加载。';
+    document.getElementById('modalCode').style.display='none';
+    document.getElementById('modalBg').classList.add('show');
+    return;
+  }
+  let cands = [];
+  if(rawCands.trim()){
+    cands = rawCands.split(/\n?---\n?/).map(s=>s.trim()).filter(Boolean);
+  }
+  const result = microInnovateV04(ref, cands, audience);
+  renderResult(result, ref, cands);
+});
+
+document.getElementById('heuristicBtn').addEventListener('click',()=>{
+  const ref = document.getElementById('refInput').value.trim();
+  if(!ref){
+    document.getElementById('modalTitle').textContent='�️ 缺参考 prompt';
+    document.getElementById('modalBody').textContent='请先填入参考 prompt，再点启发式生成。';
+    document.getElementById('modalCode').style.display='none';
+    document.getElementById('modalBg').classList.add('show');
+    return;
+  }
+  const cands = heuristicGenerate(ref);
+  document.getElementById('candInput').value = cands.join('\n---\n');
+});
+
+document.getElementById('clearBtn').addEventListener('click',()=>{
+  document.getElementById('refInput').value='';
+  document.getElementById('candInput').value='';
+  document.getElementById('resultArea').innerHTML=`<div class="result-empty"><div class="icon">🎬</div><div class="title">还没有结果</div><div>选个示例，或粘自己的 prompt + 候选，点「开始微创新」</div></div>`;
+  document.querySelectorAll('.sample-chip').forEach(b=>b.classList.remove('active'));
+});
+
+document.getElementById('modalClose').addEventListener('click',()=>{
+  document.getElementById('modalBg').classList.remove('show');
+});
+document.getElementById('modalBg').addEventListener('click',e=>{
+  if(e.target.id==='modalBg') document.getElementById('modalBg').classList.remove('show');
+});
+
+// 默认显示空状态
+console.log('prompt-micro-innovate v0.4.1 演示模式就绪');
+</script>
 </body>
 </html>
