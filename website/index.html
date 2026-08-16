@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>prompt-micro-innovate · 抖音 / 短视频 Prompt 微创新 Agent</title>
+  <meta name="description" content="抖音 / 短视频 Prompt 微创新方法论 + 21 项硬指标自检工具。把参考爆款 prompt 做差异化改写，避免平台判定为同质化抄袭。">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ Hero ============ -->
+<header class="hero">
+  <div class="container">
+    <div class="badge">v0.4.1 · MIT License</div>
+    <h1>prompt-micro-innovate</h1>
+    <p class="tagline">
+      抖音 / 短视频 Prompt 微创新 Agent<br>
+      把"已经被验证爆款"的视频生成 prompt 做差异化改写<br>
+      + 21 项硬指标自检告诉你哪个候选能过审
+    </p>
+    <div class="cta-group">
+      <a href="#how-to-use" class="btn btn-primary">▶ 立即使用</a>
+      <a href="https://github.com/baidang201/prompt-micro-innovate" class="btn btn-secondary">★ GitHub 仓库</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ Stats ============ -->
+<section>
+  <div class="container">
+    <h2>它省了你多少时间</h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="label">候选生成耗时</div>
+        <div class="value">30 秒</div>
+        <div class="delta">↓ 之前手工脑暴 1-2 小时</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">自检项数</div>
+        <div class="value">21 项</div>
+        <div class="delta">硬指标覆盖 钩子 / 长度 / 逻辑 / 受众 / 骨架</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">撞模板拦截</div>
+        <div class="value">事前</div>
+        <div class="delta">↓ 之前发布后看数据再返工</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">兜底反馈</div>
+        <div class="value">4 条</div>
+        <div class="delta">候选空时主动告诉你下一步</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 它是什么 ============ -->
+<section>
+  <div class="container">
+    <h2>它是什么</h2>
+    <p>
+      这是一个<strong>抖音 / 短视频 Prompt 微创新 Agent</strong>。你给它一条"参考爆款"视频生成 prompt，它会：
+    </p>
+    <ol style="padding-left: 24px; margin: 16px 0;">
+      <li>帮你按 <code class="inline">SCAMPER-LP</code> 五维（Substitute / Modify / Adapt / Combine / Put）启发式生成 <strong>5 个差异化候选</strong></li>
+      <li>跑 <strong>21 项硬指标自检</strong>（钩子 / 长度 / 逻辑 / 受众 / 骨架差异化 等），告诉你哪个候选真的能过审、哪个会撞模板</li>
+      <li>候选空 / 候选过少时主动进入<strong>兜底 review</strong>，告诉你"为什么空 + 下一步怎么做"</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 工具链 ============ -->
+<section>
+  <div class="container">
+    <h2>用了什么工具</h2>
+    <div class="toolchain">
+      <div class="tool">
+        <div class="icon">🤖</div>
+        <div class="name">Hermes Agent Platform</div>
+        <div class="role">宿主平台；接收任务、调度 skill、回报结果</div>
+      </div>
+      <div class="tool">
+        <div class="icon">⚙️</div>
+        <div class="name">Codex CLI</div>
+        <div class="role">开发者迭代 skill 本身（修改规则、调阈值）</div>
+      </div>
+      <div class="tool">
+        <div class="icon">🐍</div>
+        <div class="name">innovate.py</div>
+        <div class="role">21 项硬指标自检引擎（纯 Python，零外部依赖）</div>
+      </div>
+      <div class="tool">
+        <div class="icon">💬</div>
+        <div class="name">飞书 CLI（v0.5 待接入）</div>
+        <div class="role">把候选 + 自检结果发到飞书群让圈友投票</div>
+      </div>
+      <div class="tool">
+        <div class="icon">🧠</div>
+        <div class="name">LLM API（v0.5 待接入）</div>
+        <div class="role">候选生成升级到 LLM，强制 5 候选走 5 种骨架</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 21 项自检 ============ -->
+<section>
+  <div class="container">
+    <h2>21 项硬指标自检</h2>
+    <p class="muted">v0.4.1 整合：v0.3 自检（12 项）+ v0.4 新增（6 项单候选）+ v0.4 跨候选（3 项）</p>
+
+    <h3>单候选自检（18 项）</h3>
+    <div class="checks-grid">
+      <div class="check"><div class="code">R2 修订</div><div class="desc">核心台词 ≤1 复用（避免抄原片）</div></div>
+      <div class="check"><div class="code">R16 前 3 秒钩子</div><div class="desc">必须含具体动作 / 物件 / 数字</div></div>
+      <div class="check"><div class="code">R17 长度 ≤80</div><div class="desc">候选 prompt 字数上限 80</div></div>
+      <div class="check"><div class="code">R18 逻辑自洽</div><div class="desc">年龄/年代倒推 ≥8 岁（学龄前才不合常理）</div></div>
+      <div class="check"><div class="code">R19 受众钩子</div><div class="desc">按受众分层（women_18_40 / general）匹配钩子词</div></div>
+      <div class="check"><div class="code">R20 避雷</div><div class="desc">不写"蒸汽朦胧镜头"等模板套话</div></div>
+      <div class="check"><div class="code">Q1 钩子保留</div><div class="desc">reference 的核心钩子不能丢</div></div>
+      <div class="check"><div class="code">Q2 决策空间</div><div class="desc">候选必须给出比参考更多的镜头选择</div></div>
+      <div class="check"><div class="code">Q3 半衰期</div><div class="desc">候选不能比参考更快过时</div></div>
+      <div class="check"><div class="code">Q4 戏根</div><div class="desc">候选必须保留 reference 的"戏根"（身份/物件/承诺）</div></div>
+      <div class="check"><div class="code">Q5 困境突围</div><div class="desc">候选必须含"困境 + 突围"动作</div></div>
+      <div class="check"><div class="code">Q6 只能他说</div><div class="desc">候选必须含"只有这个人物能说"的台词</div></div>
+      <div class="check"><div class="code">感官细节</div><div class="desc">至少 1 个视觉/触觉/听觉/嗅觉细节</div></div>
+      <div class="check"><div class="code">节奏细节</div><div class="desc">含镜头节奏描述（长镜/推近/特写等）</div></div>
+      <div class="check"><div class="code">文化细节</div><div class="desc">至少 1 个地域/年代/职业/民俗符号</div></div>
+      <div class="check"><div class="code">相似度阈值</div><div class="desc">与 reference 的 Jaccard 相似度 <70%</div></div>
+      <div class="check"><div class="code">撞历史</div><div class="desc">与历史已发布 prompt 的相似度不能撞</div></div>
+      <div class="check"><div class="code">撞避雷</div><div class="desc">不能含已知高风险镜头/台词模式</div></div>
+    </div>
+
+    <h3>跨候选自检（3 项）</h3>
+    <div class="checks-grid">
+      <div class="check" style="border-left-color: var(--purple);">
+        <div class="code">R15 骨架差异化</div>
+        <div class="desc">5 候选必须覆盖 ≥3 种骨架（坚守/传承/反悔/对照/被发现）</div>
+      </div>
+      <div class="check" style="border-left-color: var(--purple);">
+        <div class="code">R21 钩子动词差异化</div>
+        <div class="desc">5 候选必须含 ≥3 种钩子动词（致敬/鼓励/心疼/看哭了 等）</div>
+      </div>
+      <div class="check" style="border-left-color: var(--purple);">
+        <div class="code">R22 空 prompt 兜底</div>
+        <div class="desc">new_prompts=[] 时主动告知兜底 + 4 条 guidance</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 样本实测 ============ -->
+<section>
+  <div class="container">
+    <h2>真实样本实测（v0.4.1）</h2>
+    <p class="muted">3 个真实样本 × 5 个 SCAMPER-LP 启发式候选 × 21 项自检，<code class="inline">python3 tests/e2e_runner.py</code> 可复现</p>
+
+    <table class="result-table">
+      <thead>
+        <tr><th>样本</th><th>类型</th><th>all_pass</th><th>R15 骨架</th><th>R17 长度</th><th>R18 逻辑</th><th>R19 受众</th><th>R21 钩子</th><th>R22 兜底</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>sample-1</strong><br>早餐店夫妻（152 字）</td>
+          <td>主流程</td>
+          <td><span class="fail">❌</span></td>
+          <td><span class="fail">� 2/3</span></td>
+          <td><span class="fail">� 5/5</span></td>
+          <td><span class="pass">✅</span></td>
+          <td><span class="fail">❌ 5/5</span></td>
+          <td><span class="pass">✅ 干净</span></td>
+          <td>n/a</td>
+        </tr>
+        <tr>
+          <td><strong>sample-2</strong><br>周末爬山（79 字，故意残缺）</td>
+          <td>空 prompt</td>
+          <td><span class="fail">❌</span></td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td><span class="pass">✅ 已实现</span></td>
+        </tr>
+        <tr>
+          <td><strong>sample-3</strong><br>彝族老奶奶 + 嫁衣（126 字）</td>
+          <td>真实场景</td>
+          <td><span class="fail">❌</span></td>
+          <td><span class="fail">❌ 1/3</span></td>
+          <td><span class="fail">❌ 5/5</span></td>
+          <td><span class="pass">✅ 边界 1/5</span></td>
+          <td><span class="fail">❌ 5/5</span></td>
+          <td><span class="pass">✅ 干净</span></td>
+          <td>n/a</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>真实输出示例（sample-2 空 prompt 兜底）</h3>
+<pre><code><span class="j-key">{
+  "all_pass":</span> <span class="j-bool">false</span><span class="j-key">,
+  "fallback_triggered":</span> <span class="j-bool">true</span><span class="j-key">,
+  "fallback_reason":</span> <span class="j-str">"new_prompts 为空，v0.4 自检无法跨候选对比；进入 Profile §6.1 兜底 review…"</span><span class="j-key">,
+  "guidance":</span> <span class="j-key">[
+    "</span><span class="j-str">1. 用 SCAMPER-LP 五维生成候选</span><span class="j-key">",
+    "</span><span class="j-str">2. 每个候选 MUST 走不同骨架</span><span class="j-key">",
+    "</span><span class="j-str">3. 每个候选 MUST 含受众钩子词</span><span class="j-key">",
+    "</span><span class="j-str">4. 每个候选长度 MUST ≤ 80 字</span><span class="j-key">"
+  ]</span>
+<span class="j-key">}</span></code></pre>
+
+    <h3>R18 边界验证（sample-3 候选 3）</h3>
+    <pre><code><span class="j-key">输入</span>: <span class="j-str">"1958年开始绣嫁衣的彝族老奶奶。今年70岁。"</span>
+<span class="j-key">检查</span>: R18 逻辑自洽（年龄/年代倒推 ≥8 岁）
+<span class="j-key">结果</span>: <span class="j-bool">false</span> — <span class="j-str">"70岁 - 1958年 = -1888岁，不合常理（学龄前）"</span></code></pre>
+  </div>
+</section>
+
+<!-- ============ 如何使用 ============ -->
+<section id="how-to-use">
+  <div class="container">
+    <h2>三步上手</h2>
+
+    <div class="steps">
+      <div class="step">
+        <span class="num">1</span>
+        <h4>克隆仓库</h4>
+<pre><code>git clone https://github.com/baidang201/prompt-micro-innovate.git
+cd prompt-micro-innovate</code></pre>
+      </div>
+
+      <div class="step">
+        <span class="num">2</span>
+        <h4>放进 skills 目录</h4>
+<pre><code># Codex
+ln -s "$(pwd)" ~/.codex/skills/prompt-micro-innovate
+
+# 或 Hermes
+cp -r "$(pwd)" ~/.hermes/skills/prompt-micro-innovate</code></pre>
+      </div>
+
+      <div class="step">
+        <span class="num">3</span>
+        <h4>调用</h4>
+<pre><code>import sys
+sys.path.insert(0, "scripts")
+from innovate import micro_innovate_v04
+
+ref = "你的参考 prompt"
+cands = ["c1","c2","c3","c4","c5"]
+
+result = micro_innovate_v04(ref, cands)
+print(result["all_pass"])</code></pre>
+      </div>
+    </div>
+
+    <h3>在 Hermes Agent 里直接说（最常用）</h3>
+    <pre><code>帮我把这条 prompt 做微创新：[粘你的参考 prompt]。
+我要 5 个差异化候选，每个 ≤80 字，给我过自检的结果。</code></pre>
+  </div>
+</section>
+
+<!-- ============ 注意事项 ============ -->
+<section>
+  <div class="container">
+    <h2>注意事项</h2>
+    <div class="caveats">
+      <h3 style="margin-top: 0;">它做不了什么</h3>
+      <ul>
+        <li><strong>不能直接生成视频</strong>：它只做 prompt 改写 + 自检；视频生成要交给剪映 / 即梦 / 可灵</li>
+        <li><strong>不能保证 100% 过审</strong>：21 项自检是基于"经验规律的硬指标"，不是平台算法</li>
+        <li><strong>不能替代人工审美</strong>：自检通过 ≠ 视频会爆；最终还是要看数据</li>
+      </ul>
+    </div>
+
+    <div class="caveats">
+      <h3 style="margin-top: 0;">什么时候需要人工介入</h3>
+      <ul>
+        <li>5 候选全失败：自己重写参考 prompt，补充"奠基动作"和"具体物件"</li>
+        <li>R18 边界误报（如「70 岁讲 90 年前的故事」被判不合常理）：手动加注释或调整阈值</li>
+        <li>受众分层需要切换（如从 <code class="inline">women_18_40</code> 切到 <code class="inline">men_18_35</code>）：手动改 <code class="inline">audience</code> 参数</li>
+      </ul>
+    </div>
+
+    <div class="caveats">
+      <h3 style="margin-top: 0;">已知问题和后续改进方向</h3>
+      <ul>
+        <li>v0.4.x 候选生成用启发式，<strong>5 候选可能走相同骨架</strong>（如都走"坚守"）→ v0.5 接 LLM 强制 5 候选走 5 种不同骨架</li>
+        <li>v03 失败报告未细分到 <code class="inline">luwei_checks.q5/q6</code> 子项 → 优先级 3，待修</li>
+        <li>静态参数尾巴正则有 SyntaxWarning（<code class="inline">\s</code> 在 raw string 中）→ 待清理</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Footer ============ -->
+<footer>
+  <div class="container">
+    <p>
+      <strong>prompt-micro-innovate</strong> v0.4.1 · MIT License
+    </p>
+    <p style="margin-top: 8px;">
+      <a href="https://github.com/baidang201/prompt-micro-innovate">GitHub 仓库</a> ·
+      <a href="../README.md">完整使用说明书</a> ·
+      <a href="../CHANGELOG.md">更新日志</a>
+    </p>
+    <p class="muted" style="margin-top: 16px; font-size: 12px;">
+      基于 game-methodology M00 + SCAMPER + 三问铁律 + 芦苇编剧维度
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

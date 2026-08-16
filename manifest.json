@@ -1,0 +1,72 @@
+{
+  "name": "prompt-micro-innovate",
+  "version": "0.4.1",
+  "created": "2026-08-07",
+  "based_on": "game-methodology M00 + SCAMPER + 三问铁律 + 芦苇编剧维度",
+  "files": [
+    "SKILL.md",
+    "references/rules.md",
+    "references/transform-rules.md",
+    "references/case-prompt-examples.md",
+    "templates/micro-innovated-prompt.md",
+    "scripts/innovate.py",
+    "tests/e2e_runner.py",
+    "tests/test-prompts/sample-1.txt",
+    "tests/test-prompts/sample-2.txt",
+    "tests/test-prompts/sample-3.txt"
+  ],
+  "entry_point": "scripts/innovate.py",
+  "applies_to": "抖音/短视频 prompt 微创新",
+  "audience_default": "women_18_40",
+  "max_length_default": 80,
+  "updated": "2026-08-16",
+  "changelog": [
+    {
+      "version": "0.4.1",
+      "date": "2026-08-16",
+      "changes": [
+        "修 R22 fallback：new_prompts=[] 时返回 fallback_triggered=True + reason + guidance（Profile §4.7 硬指标兑现）",
+        "修 R21 钩子动词识别：strip 候选尾部 6 类参数尾巴（9:16 竖屏 / 4K 高清 / 60 秒以内 / 竖屏 / 高清 / 数字K 高清），不再假阳性"
+      ]
+    },
+    {
+      "version": "0.4.0",
+      "date": "2026-08-16",
+      "changes": [
+        "新增 R2 修订：核心台词 ≤1 复用（避免抄原片）",
+        "新增 R16：前 3 秒钩子必须含具体动作 / 物件 / 数字",
+        "新增 R17：候选长度 ≤80 字",
+        "新增 R18：逻辑自洽（年龄/年代倒推 ≥8 岁）",
+        "新增 R19：受众钩子词分层（women_18_40 / general）",
+        "新增 R20：避雷硬规则（不写'蒸汽朦胧镜头'等模板套话）",
+        "新增 R15/R21 跨候选：5 候选 ≥3 种骨架 / ≥3 种钩子动词",
+        "新增 R22 fallback：new_prompts=[] 时主动告知兜底",
+        "整合函数 micro_innovate_v04(reference, new_prompts, audience)"
+      ]
+    },
+    {
+      "version": "0.3.0",
+      "date": "2026-08-07",
+      "changes": [
+        "新增 references/rules.md：14 条硬规则 + 7 条反模式",
+        "SKILL.md 加 v0.3 章节"
+      ]
+    },
+    {
+      "version": "0.2.0",
+      "date": "2026-08-07",
+      "changes": [
+        "新增芦苇编剧维度（戏根/困境-突围/小人物大历史/只能他说）",
+        "自检升级到 6 问（3 问铁律 + 3 芦苇检）",
+        "扩展 SENSORY_PATTERNS / CULTURAL_PATTERNS / XI_GEN_PATTERNS"
+      ]
+    },
+    {
+      "version": "0.1.0",
+      "date": "2026-08-07",
+      "changes": [
+        "首版：基于 game-methodology M00 + SCAMPER + 三问铁律移植"
+      ]
+    }
+  ]
+}
